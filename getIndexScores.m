@@ -35,6 +35,11 @@ clear,clc,close all;
 
 %% Load data (adjust paths/table names as needed)
 tbl1 = readtable("Data\sampleData.xls"); % heritage data including distance, shoreline change rate, elevation, and surface geology
+
+% optional - removes offshore and island records if included in your data
+% tbl1 = tbl1(~contains(tbl1.On_Off, 'Offshore'),:);
+% tbl1 = tbl1(~contains(tbl1.On_Off, 'Island'),:);
+
 tbl2 = readtable("Data\mwhValues.xls"); % nearest mean wave height to each heritage record
 tbl3 = readtable("Data\runupValuesCapped.xls"); % nearest 2% wave runup elevation value to each heritage record
 
