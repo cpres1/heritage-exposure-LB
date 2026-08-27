@@ -9,7 +9,7 @@
 %       TI - time (datetime)
 %       dWL - de-trended total water levels (m)
 %   projf - table containing the following columns:
-%       Year - years (2020 - 2050)
+%       Year - years (2020 to 2050)
 %       x5th percentile - 5th percentile of sea-level rise projection (m)
 %       x50th percentile - 5th percentile of sea-level rise projection (m)
 %       x95th percentile - 5th percentile of sea-level rise projection (m)
@@ -97,10 +97,3 @@ grid on
 set(findobj(gcf,'type','axes'),'fontsize',16,'linewidth',2,'fontweight','bold')
 
 legend('Today','5th percentile - 2050','50th percentile - 2050','95th percentile - 2050','1-in-100-year event','location','best','fontsize',16)
-
-% quantify precisely what the return period of a 1 in 100 yr event becomes
-% under the three SLR percentiles
-
-RPslr(1,1) = interp1(RLgev+SLR(1,1),RP,RLgev(i));
-RPslr(2,1) = interp1(RLgev+SLR(2,1),RP,RLgev(i));
-RPslr(3,1) = interp1(RLgev+SLR(3,1),RP,RLgev(i));
