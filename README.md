@@ -1,4 +1,4 @@
-The files in this repository accompany the work presented in [insert title of paper]*. They include the following scripts, all written in MATLAB (R2026a):
+The files in this repository accompany the work presented in Prescott et al. (2026) 'National-Scale Assessment of Tangible Cultural Heritage Exposure to Climate-Related Coastal Hazards in Lebanon'*. They include the following scripts, all written in MATLAB (R2026a):
 
 - processData.m
 - heatMaps.m
