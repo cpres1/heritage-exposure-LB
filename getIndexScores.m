@@ -34,11 +34,11 @@
 clear,clc,close all;
 
 %% Load data (adjust paths/table names as needed)
-tbl1 = readtable("Data\sampleData.xls"); % heritage data including distance, shoreline change rate, elevation, and surface geology
+tbl1 = readtable("Data\sampleData.csv"); % heritage data including distance, shoreline change rate, elevation, and surface geology
 
 % optional - removes offshore and island records if included in your data
-% tbl1 = tbl1(~contains(tbl1.On_Off, 'Offshore'),:);
-% tbl1 = tbl1(~contains(tbl1.On_Off, 'Island'),:);
+% tbl1 = tbl1(~contains(tbl1.on_off, 'Offshore'),:);
+% tbl1 = tbl1(~contains(tbl1.on_off, 'Island'),:);
 
 tbl2 = readtable("Data\mwhValues.xls"); % nearest mean wave height to each heritage record
 tbl3 = readtable("Data\runupValuesCapped.xls"); % nearest 2% wave runup elevation value to each heritage record
@@ -58,9 +58,9 @@ for i = 1:height(tbl1)
 end
 
 % Flooding
-elev = tbl1.elevation; % elevation
+elev = tbl1.elev; % elevation
 esl = 0.593939; % 1-in-100-yr extreme sea level expected 'today' (station 1998)
-runup = zeros(heihgt(tbl1),1); % 2% wave runup elevation
+runup = zeros(height(tbl1),1); % 2% wave runup elevation
 
 for i = 1:height(tbl1)
     % find row in tbl3 that matches heritage record Shoreline Monitor ID
