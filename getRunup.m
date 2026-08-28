@@ -6,9 +6,9 @@
 %   given dataset
 % INPUT DATA
 %   shorelinePoints - table containing the following columns:
-%       lat - latitude coordinates of points for which nearest runup values
+%       intersect_lat - latitude coordinates of points for which nearest runup values
 %       are to be calculated
-%       lon - longitude coordinates of points for which... "
+%       intersect_lon - longitude coordinates of points for which... "
 %       bs - beach slope at location (degrees), here calculated from Slope 
 %       raster layer in ArcGIS Pro from SRTM 1-Arc second DEM
 %   waves - nc file containing time series of following parameters (hourly,
@@ -37,7 +37,7 @@
 %       Townend, I.H., 2021, CoastalTools manual, CoastalSEA, UK, pp83,
 %       www.coastalsea.uk.
 % SEE ALSO
-%   calls the following functions, also available as part of
+%   calls the following functions which are available as part of
 %   CoastalSEA:
 %       shoaling.m (calls embedded celerity.m)
 %       runup.m
@@ -57,7 +57,7 @@ clear; clc; close all;
 shorelinePoints = readtable("Data\shorelinePoints.xls"); % Shoreline Monitor transect coordinates (lat, lon) and beach slope at location
 waveGridLocations = readtable("Data\waveDataFinal.xls"); % Grid coordinates (lat, lon) and depth at location
 waveGridLocations = waveGridLocations(~isnan(waveGridLocations.depth), :);
-waves = "\Data\med-hcmr-wav-rean-h_VHM0-VMDR-VTPK_34.58E-36.29E_32.40N-34.90N_1985-01-01-2023-05-31_(1).nc"; % significant wave height, peak wave period
+waves = "Data\med-hcmr-wav-rean-h_VHM0-VMDR-VTPK_34.58E-36.29E_32.40N-34.90N_1985-01-01-2023-05-31_(1).nc"; % significant wave height, peak wave period
 ncdisp(waves)
 
 lon = ncread(waves,"longitude");
@@ -99,8 +99,8 @@ nRows1 = height(shorelinePoints);
 
 for i = 1:nRows1
 
-    targetLon = shorelinePoints.Intersect_lon(i);
-    targetLat = shorelinePoints.Intersect_lat(i);
+    targetLon = shorelinePoints.intersect_lon(i);
+    targetLat = shorelinePoints.intersect_lat(i);
 
     dist = hypot(LonGrid - targetLon, LatGrid - targetLat);
     dist(~validMask) = Inf; % if validMask is false, set dist to Inf
@@ -161,7 +161,7 @@ end
 transectID = shorelinePoints.transect_id;
 
 Ru_results = table(transectID,Ru_pct);
-writetable(Ru_results,"\Data\runupValues.xls")
+writetable(Ru_results,"Data\runupValues.xls")
 
 %% Cap runup values after upper adjacent
 Ru_results = readtable("Data\runupValues.xls");
@@ -180,4 +180,4 @@ end
 transectID = shorelinePoints.transect_id;
 
 T = table(transect,Ru_results.Ru_pct,Ru_capped);
-writetable(T,"\Data\runupValuesCapped.xls");
+writetable(T,"Data\runupValuesCapped.xls");
