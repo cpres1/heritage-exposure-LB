@@ -5,6 +5,7 @@
 %   Calculates mean wave height values for points in a given dataset
 % INPUT DATA
 %   shorelinePoints - table containing the following columns:
+%       transectID - point identifier
 %       lat - latitude coordinates of points for which nearest runup values
 %       are to be calculated
 %       lon - longitude coordinates of points for which... "
@@ -31,7 +32,7 @@ clear; clc; close all;
 
 shorelinePoints = readtable("Data\shorelinePoints.xls"); % Shoreline Monitor transect coordinates (lat, lon)
 waveGridLocations = readtable("Data\waveCoordinates.xls"); % Grid coordinates (lat, lon)
-waves = "Data\Wave Data\Med Sea Waves Reanalysis\med-hcmr-wav-rean-h_VHM0-VMDR-VTPK_34.58E-36.29E_32.40N-34.90N_1985-01-01-2023-05-31_(1).nc"; % significant wave height, peak wave period
+waves = "Data\med-hcmr-wav-rean-h_VHM0-VMDR-VTPK_34.58E-36.29E_32.40N-34.90N_1985-01-01-2023-05-31_(1).nc"; % significant wave height, peak wave period
 ncdisp(waves)
 
 %% Define significant wave height variable Hs
@@ -68,7 +69,7 @@ for i = 1:nRows1
 end
 
 %% Save results
-transectID = shorelinePoints.transect_id;
+transectID = shorelinePoints.transectID;
 mwhValues = table(transectID,mWH);
 writetable(mwhValues,"Data\mwhValues.xls")
 
